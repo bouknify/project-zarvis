@@ -16,7 +16,6 @@ public class ContentExtractor {
 	private String [] content;
 	private String [] split;
 	
-	@SuppressWarnings("unused")
 	private String guid;
 	private String customer;
 	private String productString;
