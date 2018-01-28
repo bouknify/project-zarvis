@@ -18,9 +18,15 @@ import zarvis.bakery.Gui.controller.BakeryEditDialogController;
 import zarvis.bakery.Gui.controller.BakeryOverviewController;
 import zarvis.bakery.Gui.controller.CustomerEditDialogController;
 import zarvis.bakery.Gui.controller.CustomerOverviewController;
+import zarvis.bakery.Gui.controller.KneedingMachinesController;
 import zarvis.bakery.Gui.controller.OrdersController;
+import zarvis.bakery.Gui.controller.OvensController;
 import zarvis.bakery.Gui.controller.RootLayoutController;
+
+import zarvis.bakery.Gui.controller.TrucksController;
+
 import zarvis.bakery.Gui.controller.StreetNetworkController;
+
 import zarvis.bakery.Gui.model.Customer;
 import zarvis.bakery.Gui.model.CustomerListWrapper;
 import zarvis.bakery.Gui.model.Bakery;
@@ -72,6 +78,9 @@ public class MainApp extends Application {
     		b.setName(bakery.getName());
     		b.setGuid(bakery.getGuid());
     		b.setLocation(bakery.getLocation());
+    		b.setOvens(bakery.getOvens());
+    		b.setTrucks(bakery.getTrucks());
+    		b.setKneedingMachines(bakery.getKneading_machines());
     		bakeryData.add(b);
     	}
     }
@@ -393,7 +402,72 @@ public class MainApp extends Application {
         launch(args);
     }
 
+	public void showOvens(Bakery Bakery) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("controller/Ovens.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("vens");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            // Set the Customer into the controller.
+            OvensController controller = loader.getController();
+            //controller.setDialogStage(dialogStage);
+            controller.setOvens(Bakery);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+        }
+		
+	}
+	public void showTrucks(Bakery Bakery) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("controller/Trucks.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("vens");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            // Set the Customer into the controller.
+            TrucksController controller = loader.getController();
+            //controller.setDialogStage(dialogStage);
+            controller.setTrucks(Bakery);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+        }
+		
+	}
 	
+	public void showKneedingMachines(Bakery Bakery) {
+		try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("controller/KneedingMachines.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("vens");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            // Set the Customer into the controller.
+            KneedingMachinesController controller = loader.getController();
+            //controller.setDialogStage(dialogStage);
+            controller.setKneedingMachines(Bakery);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+        }
+		
+	}
 
-	
 }

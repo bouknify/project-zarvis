@@ -154,5 +154,62 @@ public class BakeryOverviewController {
             alert.showAndWait();
         }
     }
+    
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new Customer.
+     */
+    @FXML
+    private void handleOvens() {
+    	Bakery selectedBakery = BakeryTable.getSelectionModel().getSelectedItem();
+    	 if (selectedBakery != null) {
+            mainApp.showOvens(selectedBakery);
+
+         } else {
+             // Nothing selected.
+             Alert alert = new Alert(AlertType.WARNING);
+             alert.initOwner(mainApp.getPrimaryStage());
+             alert.setTitle("No Selection");
+             alert.setHeaderText("No Bakery Selected");
+             alert.setContentText("Please select a Bakery in the list.");
+             
+             alert.showAndWait();
+         }
+    }
+    @FXML
+    private void handleTrucks() {
+    	Bakery selectedBakery = BakeryTable.getSelectionModel().getSelectedItem();
+    	 if (selectedBakery != null) {
+            mainApp.showTrucks(selectedBakery);
+
+         } else {
+             // Nothing selected.
+             Alert alert = new Alert(AlertType.WARNING);
+             alert.initOwner(mainApp.getPrimaryStage());
+             alert.setTitle("No Selection");
+             alert.setHeaderText("No Bakery Selected");
+             alert.setContentText("Please select a Bakery in the list.");
+             
+             alert.showAndWait();
+         }
+    }
+
+    @FXML
+    private void handleKneedingMachines() {
+    	Bakery selectedBakery = BakeryTable.getSelectionModel().getSelectedItem();
+    	 if (selectedBakery != null) {
+            mainApp.showKneedingMachines(selectedBakery);
+
+         } else {
+             // Nothing selected.
+             Alert alert = new Alert(AlertType.WARNING);
+             alert.initOwner(mainApp.getPrimaryStage());
+             alert.setTitle("No Selection");
+             alert.setHeaderText("No Bakery Selected");
+             alert.setContentText("Please select a Bakery in the list.");
+             
+             alert.showAndWait();
+         }
+    }
 
 }

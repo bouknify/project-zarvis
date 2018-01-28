@@ -45,6 +45,13 @@
                         <Label fx:id="nameLabel" styleClass="label-bright" text="" GridPane.columnIndex="1" />
                         <Label fx:id="guidLabel" styleClass="label-bright" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="locationLabel" styleClass="label-bright" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     	<ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" GridPane.rowIndex="7">
+                        <buttons>
+                        	<Button mnemonicParsing="false" onAction="#handleOvens" text="Ovens" />
+                        	<Button mnemonicParsing="false" onAction="#handleTrucks" text="Trucks" />
+                        	<Button mnemonicParsing="false" onAction="#handleKneedingMachines" text="Kneading Machines" />
+                        </buttons>
+                        </ButtonBar>
                      </children>
                   </GridPane>
                   <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">

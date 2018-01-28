@@ -1,18 +1,25 @@
 package zarvis.bakery.Gui.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import zarvis.bakery.models.KneedingMachine;
 import zarvis.bakery.models.Location;
+import zarvis.bakery.models.Oven;
+import zarvis.bakery.models.Truck;
 
 public class Bakery {
 	
 	private final StringProperty guid;
 	private final StringProperty name;
 	private final ObjectProperty<Location> location;
-	//private ArrayList<Order> orders = new ArrayList<Order>();
-	
+	private ArrayList<Oven> ovens = new ArrayList<Oven>();
+	private List<Truck> trucks = new ArrayList<Truck>();
+	private List<KneedingMachine> kneeding_machines = new ArrayList<KneedingMachine>();
 	public Bakery(){
 		this(null,null);
 	}
@@ -55,5 +62,51 @@ public class Bakery {
 	public void setLocation(Location location) {
 		this.location.set(location);
 	}
+	public List<Oven> getOvens() {
+		return ovens;
+	}
+	
+	public void setOvens(List<Oven> ovens){
+		this.ovens = (ArrayList<Oven>) ovens;
+	}
+
+	public Oven getOvenById(String selectedItem) {
+		for(Oven oven : this.getOvens())
+			if(oven.getGuid().equals(selectedItem))
+				return oven;
+		return null;
+	}
+	
+
+	public List<Truck> getTrucks() {
+		return trucks;
+	}
+
+	public void setTrucks(List<Truck> trucks){
+		this.trucks = (ArrayList<Truck>) trucks;
+	}
+	
+	public Truck getTruckById(String selectedItem) {
+		for(Truck truck : this.getTrucks())
+			if(truck.getGuid().equals(selectedItem))
+				return truck;
+		return null;
+	}
+	public List<KneedingMachine> getKneedingMachines() {
+		return kneeding_machines;
+	}
+
+	public void setKneedingMachines(List<KneedingMachine> kneeding_machines){
+		this.kneeding_machines = (ArrayList<KneedingMachine>) kneeding_machines;
+	}
+	
+	public KneedingMachine getKneedingMachineById(String selectedItem) {
+		for(KneedingMachine kneeding_machine : this.getKneedingMachines())
+			if(kneeding_machine.getGuid().equals(selectedItem))
+				return kneeding_machine;
+		return null;
+	}
+
+
 
 }
