@@ -122,4 +122,8 @@ public class RootLayoutController {
     	
     	mainApp.showBakeries();
     }
+    @FXML
+    private void handleCustomers(){
+    	mainApp.showCustomerOverview();
+    }
 }
