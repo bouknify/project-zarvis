@@ -12,7 +12,7 @@ addons:
     - master
 
 jdk:
-- openjdk8
+- oraclejdk8
 script:
   - "gradle sonarqube"
   - "gradle run"
