@@ -30,8 +30,8 @@ public class Util {
 
 	public static BakeryJsonWrapper getWrapper() {
 		
-		//final String FILENAME = "src/main/config/random-scenario.json";
-		final String FILENAME = "/home/aniruddha/Downloads/WS2017/MultiAgent/project-zarvis/src/main/config/random-scenario.json";
+		final String FILENAME = "src/main/config/random-scenario.json";
+		//final String FILENAME = "/home/aniruddha/Downloads/WS2017/MultiAgent/project-zarvis/src/main/config/random-scenario.json";
 		//final String FILENAME = "/home/yassine/WS17_yboukn2s/project-zarvis/src/main/config/random-scenario.json";
 		BakeryJsonWrapper jsonwrapper = null;
 		BufferedReader reader = null;
