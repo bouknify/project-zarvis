@@ -9,7 +9,8 @@ import javafx.stage.FileChooser;
 import zarvis.bakery.Gui.MainApp;
 
 
-public class RootLayoutController {
+
+public class RootLayoutController  {
 
     //Reference to the main application
     private MainApp mainApp;
@@ -112,6 +113,8 @@ public class RootLayoutController {
      */
     @FXML
     private void handleShowStreetNetwork() {
+    	mainApp.showStreetNetwork();
+    	
     }
     
     /**

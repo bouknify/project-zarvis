@@ -20,6 +20,7 @@ import zarvis.bakery.Gui.controller.CustomerEditDialogController;
 import zarvis.bakery.Gui.controller.CustomerOverviewController;
 import zarvis.bakery.Gui.controller.OrdersController;
 import zarvis.bakery.Gui.controller.RootLayoutController;
+import zarvis.bakery.Gui.controller.StreetNetworkController;
 import zarvis.bakery.Gui.model.Customer;
 import zarvis.bakery.Gui.model.CustomerListWrapper;
 import zarvis.bakery.Gui.model.Bakery;
@@ -368,6 +369,14 @@ public class MainApp extends Application {
         	alert.showAndWait();
         }
     }
+    
+    public void showStreetNetwork() {
+    	StreetNetworkController v = new StreetNetworkController();
+		BakeryJsonWrapper wrapper = Util.getWrapper();
+		v.setStreetNetwork(wrapper.getStreet_network());
+		v.start(getPrimaryStage());
+		
+	}
 
     /**
      * Returns the main stage.
@@ -380,4 +389,8 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+	
+
+	
 }
