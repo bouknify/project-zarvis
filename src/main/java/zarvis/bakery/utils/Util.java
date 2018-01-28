@@ -40,7 +40,7 @@ public class Util {
 			reader = new BufferedReader(new FileReader(FILENAME));
 			jsonwrapper = new Gson().fromJson(reader, BakeryJsonWrapper.class);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error("Exception :: " , e);
 		}
 		finally
 		{
@@ -92,7 +92,7 @@ public class Util {
 			DFService.register(agent, agentDescription);
 			return true;
 		} catch (FIPAException e) {
-			e.printStackTrace();
+			logger.error("Exception :: " , e);
 			return false;
 		}
 	}
@@ -100,8 +100,8 @@ public class Util {
 	public static void deregisterInYellowPage(Agent agent) {
 		try {
 			DFService.deregister(agent);
-		} catch (FIPAException fe) {
-			fe.printStackTrace();
+		} catch (FIPAException e) {
+			logger.error("Exception :: " , e);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class Util {
 		try {
 			Thread.sleep(milliseconds);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			logger.error("Exception :: " , e);
 			Thread.currentThread().interrupt();
 		}
 	}
