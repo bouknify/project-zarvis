@@ -14,12 +14,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import zarvis.bakery.Gui.controller.BakeryEditDialogController;
+import zarvis.bakery.Gui.controller.BakeryOverviewController;
 import zarvis.bakery.Gui.controller.CustomerEditDialogController;
 import zarvis.bakery.Gui.controller.CustomerOverviewController;
 import zarvis.bakery.Gui.controller.OrdersController;
 import zarvis.bakery.Gui.controller.RootLayoutController;
 import zarvis.bakery.Gui.model.Customer;
 import zarvis.bakery.Gui.model.CustomerListWrapper;
+import zarvis.bakery.Gui.model.Bakery;
 import zarvis.bakery.models.BakeryJsonWrapper;
 import zarvis.bakery.utils.Util;
 
@@ -38,6 +41,10 @@ public class MainApp extends Application {
      * The data as an observable list of Customers.
      */
     private ObservableList<Customer> customerData = FXCollections.observableArrayList();
+    /**
+     * The data as an observable list of Customers.
+     */
+    private ObservableList<Bakery> bakeryData = FXCollections.observableArrayList();
 
     /**
      * Constructor
@@ -56,6 +63,13 @@ public class MainApp extends Application {
     		c.setTotalType3(customer.getTotal_type3());
     		customerData.add(c);
     	}
+    	for (zarvis.bakery.models.Bakery bakery : wrapper.getBakeries()) {
+    		Bakery b = new Bakery();
+    		b.setName(bakery.getName());
+    		b.setGuid(bakery.getGuid());
+    		b.setLocation(bakery.getLocation());
+    		bakeryData.add(b);
+    	}
     }
 
     /**
@@ -65,6 +79,15 @@ public class MainApp extends Application {
     public ObservableList<Customer> getCustomerData() {
         return customerData;
     }
+    
+    /**
+     * Returns the data as an observable list of Customers. 
+     * @return
+     */
+    public ObservableList<Bakery> getBakeryData() {
+        return bakeryData;
+    }
+    
 
     @Override
     public void start(Stage primaryStage) {
@@ -130,6 +153,26 @@ public class MainApp extends Application {
         }
     }
     
+    public void showBakeries() {
+    	
+    	try {
+            // Load Customer overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("controller/BakeryOverview.fxml"));
+            AnchorPane CustomerOverview = (AnchorPane) loader.load();
+
+            // Set Customer overview into the center of root layout.
+            rootLayout.setCenter(CustomerOverview);
+
+            // Give the controller access to the main app.
+            BakeryOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+    }
     /**
      * Opens a dialog to edit details for the specified Customer. If the user
      * clicks OK, the changes are saved into the provided Customer object and true
@@ -157,6 +200,39 @@ public class MainApp extends Application {
             CustomerEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setCustomer(Customer);
+            
+            // Set the dialog icon.
+            //dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean showBakeryEditDialog(Bakery Bakery) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("controller/BakeryEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Bakery");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the Customer into the controller.
+            BakeryEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setBakery(Bakery);
             
             // Set the dialog icon.
             //dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));

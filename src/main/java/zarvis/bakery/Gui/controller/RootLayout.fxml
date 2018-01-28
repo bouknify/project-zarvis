@@ -36,6 +36,11 @@
               <MenuItem mnemonicParsing="false" onAction="#handleShowStreetNetwork" text="Show street network " />
             </items>
           </Menu>
+          <Menu mnemonicParsing="false" text="Bakery">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleBakeries" text="Show Bakeries " />
+            </items>
+          </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
