@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 
 import jade.core.AID;
@@ -15,16 +19,19 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import zarvis.bakery.utils.ValueComparatorAscending;
+import zarvis.bakery.behaviors.PreparationTable.ProcessPreparationTableBehavior;
 import zarvis.bakery.models.*;
 
 public class Util {
+	private static Logger logger = LoggerFactory.getLogger(ProcessPreparationTableBehavior.class);
 	public static final List<String> PRODUCTNAMES = Arrays.asList("Bagel", "Baguette", "Berliner", "Bread", "Brezel", "Bun", "Ciabatta",
 			"Cookie", "Croissant", "Donut", "Muffin","Multigrain Bread");
 	public static final long MILLIS_PER_MIN = 2;
 
 	public static BakeryJsonWrapper getWrapper() {
-		final String FILENAME = "src/main/config/random-scenario.json";
-		//final String FILENAME = "/home/aniruddha/Downloads/WS2017/MultiAgent/project-zarvis/src/main/config/random-scenario.json";
+		
+		//final String FILENAME = "src/main/config/random-scenario.json";
+		final String FILENAME = "/home/aniruddha/Downloads/WS2017/MultiAgent/project-zarvis/src/main/config/random-scenario.json";
 		//final String FILENAME = "/home/yassine/WS17_yboukn2s/project-zarvis/src/main/config/random-scenario.json";
 		BakeryJsonWrapper jsonwrapper = null;
 		BufferedReader reader = null;
@@ -42,7 +49,7 @@ public class Util {
 					reader.close();
 			}
 			catch (IOException e) {
-				e.printStackTrace();
+				logger.error("Exception :: " , e);
 			}		
 			
 		}
@@ -63,7 +70,7 @@ public class Util {
 			DFAgentDescription[] searchResult = DFService.search(agent, agentDescription);
 			return (searchResult.length != 0) ? searchResult : null;
 		} catch (FIPAException e) {
-			e.printStackTrace();
+			logger.error("Exception :: " , e);
 			return null;
 		}
 
