@@ -41,6 +41,11 @@
               <MenuItem mnemonicParsing="false" onAction="#handleBakeries" text="Show Bakeries " />
             </items>
           </Menu>
+          <Menu mnemonicParsing="false" text="Customer">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleCustomers" text="Show Customer " />
+            </items>
+          </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
