@@ -19,11 +19,10 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import zarvis.bakery.utils.ValueComparatorAscending;
-import zarvis.bakery.behaviors.PreparationTable.ProcessPreparationTableBehavior;
 import zarvis.bakery.models.*;
 
 public class Util {
-	private static Logger logger = LoggerFactory.getLogger(ProcessPreparationTableBehavior.class);
+	private static Logger logger = LoggerFactory.getLogger(Util.class);
 	public static final List<String> PRODUCTNAMES = Arrays.asList("Bagel", "Baguette", "Berliner", "Bread", "Brezel", "Bun", "Ciabatta",
 			"Cookie", "Croissant", "Donut", "Muffin","Multigrain Bread");
 	public static final long MILLIS_PER_MIN = 2;

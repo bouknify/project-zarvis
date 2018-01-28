@@ -22,7 +22,11 @@ import zarvis.bakery.Gui.controller.KneedingMachinesController;
 import zarvis.bakery.Gui.controller.OrdersController;
 import zarvis.bakery.Gui.controller.OvensController;
 import zarvis.bakery.Gui.controller.RootLayoutController;
+
 import zarvis.bakery.Gui.controller.TrucksController;
+
+import zarvis.bakery.Gui.controller.StreetNetworkController;
+
 import zarvis.bakery.Gui.model.Customer;
 import zarvis.bakery.Gui.model.CustomerListWrapper;
 import zarvis.bakery.Gui.model.Bakery;
@@ -33,10 +37,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 public class MainApp extends Application {
-
+	private static Logger logger = LoggerFactory.getLogger(MainApp.class);
     private Stage primaryStage;
     private BorderPane rootLayout;
     
@@ -127,7 +134,7 @@ public class MainApp extends Application {
 
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("Exception :: " , e);
         }
 
         // Try to load last opened Customer file.
@@ -155,7 +162,7 @@ public class MainApp extends Application {
             controller.setMainApp(this);
 
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("Exception :: " , e);
         }
     }
     
@@ -175,7 +182,7 @@ public class MainApp extends Application {
             controller.setMainApp(this);
 
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("Exception :: " , e);
         }
     	
     }
@@ -215,7 +222,7 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("Exception :: " , e);
             return false;
         }
     }
@@ -248,7 +255,7 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("Exception :: " , e);
             return false;
         }
     }
@@ -270,7 +277,7 @@ public class MainApp extends Application {
             controller.setOrders(Customer);
             dialogStage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("Exception :: " , e);
             
         }
     }
@@ -374,6 +381,14 @@ public class MainApp extends Application {
         	alert.showAndWait();
         }
     }
+    
+    public void showStreetNetwork() {
+    	StreetNetworkController v = new StreetNetworkController();
+		BakeryJsonWrapper wrapper = Util.getWrapper();
+		v.setStreetNetwork(wrapper.getStreet_network());
+		v.start(getPrimaryStage());
+		
+	}
 
     /**
      * Returns the main stage.
@@ -454,4 +469,5 @@ public class MainApp extends Application {
         }
 		
 	}
+
 }

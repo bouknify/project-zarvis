@@ -12,7 +12,6 @@ import org.junit.Test;
 import com.google.gson.Gson;
 
 import zarvis.bakery.models.Link;
-import zarvis.bakery.models.StreetNetwork;
 
 public class LinkJunitTest {
 
