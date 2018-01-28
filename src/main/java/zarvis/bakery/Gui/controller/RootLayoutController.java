@@ -108,9 +108,18 @@ public class RootLayoutController {
     }
     
     /**
-     * Opens the birthday statistics.
+     * Opens the StreetNetwork.
      */
     @FXML
     private void handleShowStreetNetwork() {
+    }
+    
+    /**
+     * Opens the Bakery.
+     */
+    @FXML
+    private void handleBakeries() {
+    	
+    	mainApp.showBakeries();
     }
 }
