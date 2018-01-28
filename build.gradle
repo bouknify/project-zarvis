@@ -1,9 +1,12 @@
+import org.gradle.plugins.ide.eclipse.model.AccessRule
+
 plugins {
     id "org.sonarqube" version "2.6"
 }
 apply plugin: 'java'
-apply plugin: 'idea'
+apply plugin: 'eclipse'
 apply plugin: 'application'
+apply plugin: 'jacoco'
 
 mainClassName = 'zarvis.bakery.MainContainer'
 
@@ -18,8 +21,23 @@ repositories {
 }
 
 
+eclipse {
+    classpath {
+        file {
+            whenMerged {
+                def jre = entries.find { it.path.contains 'org.eclipse.jdt.launching.JRE_CONTAINER' }
+                jre.accessRules.add(new AccessRule('0', 'javafx/**'))
+            }
+        }
+    }
+}
 
- dependencies {
+jacoco {
+    toolVersion = "0.7.9"
+}
+
+
+dependencies {
      compile group: 'com.tilab.jade', name: 'jade', version: '4.5.+'
      compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
      compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
