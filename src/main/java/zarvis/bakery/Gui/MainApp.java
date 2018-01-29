@@ -120,7 +120,7 @@ public class MainApp extends Application {
         try {
             // Load  overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/FirstPane.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/FirstPane.fxml"));
             AnchorPane firstOverview = (AnchorPane) loader.load();
             
             // Set  overview into the center of root layout.
@@ -135,8 +135,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class
-                    .getResource("view/RootLayout.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -166,7 +165,7 @@ public class MainApp extends Application {
         try {
             // Load Customer overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/CustomerOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/CustomerOverview.fxml"));
             AnchorPane CustomerOverview = (AnchorPane) loader.load();
 
             // Set Customer overview into the center of root layout.
@@ -186,7 +185,7 @@ public class MainApp extends Application {
     	try {
             // Load Customer overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/BakeryOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/BakeryOverview.fxml"));
             AnchorPane CustomerOverview = (AnchorPane) loader.load();
 
             // Set Customer overview into the center of root layout.
@@ -213,7 +212,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/CustomerEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/CustomerEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -246,7 +245,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/BakeryEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/BakeryEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -278,7 +277,7 @@ public class MainApp extends Application {
     public void showOrders(Customer Customer){
     	try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Orders.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/Orders.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("orders");
@@ -419,7 +418,7 @@ public class MainApp extends Application {
 	public void showOvens(Bakery Bakery) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Ovens.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/Ovens.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("ovens");
@@ -441,7 +440,7 @@ public class MainApp extends Application {
 	public void showTrucks(Bakery Bakery) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/Trucks.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/Trucks.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Trucks");
@@ -464,7 +463,7 @@ public class MainApp extends Application {
 	public void showKneedingMachines(Bakery Bakery) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/KneedingMachines.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/KneedingMachines.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Kneeding Machines");
