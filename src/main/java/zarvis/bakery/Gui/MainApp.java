@@ -109,19 +109,34 @@ public class MainApp extends Application {
         
         initRootLayout();
        
-        //showCustomerOverview();
+        showFirstOverview();
     }
 
     /**
      * Initializes the root layout and tries to load the last opened
      * Customer file.
      */
+    public void showFirstOverview(){
+        try {
+            // Load  overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/FirstPane.fxml"));
+            AnchorPane firstOverview = (AnchorPane) loader.load();
+            
+            // Set  overview into the center of root layout.
+            rootLayout.setCenter(firstOverview);
+
+
+        } catch (IOException e) {
+        	logger.error("Exception :: " , e);
+        }
+    }
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class
-                    .getResource("controller/RootLayout.fxml"));
+                    .getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -151,7 +166,7 @@ public class MainApp extends Application {
         try {
             // Load Customer overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/CustomerOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/CustomerOverview.fxml"));
             AnchorPane CustomerOverview = (AnchorPane) loader.load();
 
             // Set Customer overview into the center of root layout.
@@ -171,7 +186,7 @@ public class MainApp extends Application {
     	try {
             // Load Customer overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/BakeryOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/BakeryOverview.fxml"));
             AnchorPane CustomerOverview = (AnchorPane) loader.load();
 
             // Set Customer overview into the center of root layout.
@@ -198,7 +213,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/CustomerEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/CustomerEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -231,7 +246,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/BakeryEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/BakeryEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -263,7 +278,7 @@ public class MainApp extends Application {
     public void showOrders(Customer Customer){
     	try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/Orders.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/Orders.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle("orders");
@@ -273,7 +288,6 @@ public class MainApp extends Application {
             dialogStage.setScene(scene);
             // Set the Customer into the controller.
             OrdersController controller = loader.getController();
-            //controller.setDialogStage(dialogStage);
             controller.setOrders(Customer);
             dialogStage.showAndWait();
         } catch (IOException e) {
@@ -405,10 +419,10 @@ public class MainApp extends Application {
 	public void showOvens(Bakery Bakery) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/Ovens.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/Ovens.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("vens");
+            dialogStage.setTitle("ovens");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
@@ -427,10 +441,10 @@ public class MainApp extends Application {
 	public void showTrucks(Bakery Bakery) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/Trucks.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/Trucks.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("vens");
+            dialogStage.setTitle("Trucks");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
@@ -450,10 +464,10 @@ public class MainApp extends Application {
 	public void showKneedingMachines(Bakery Bakery) {
 		try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("controller/KneedingMachines.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/KneedingMachines.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("vens");
+            dialogStage.setTitle("Kneeding Machines");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);

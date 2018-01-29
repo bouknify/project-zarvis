@@ -52,8 +52,6 @@ public class CustomerEditDialogController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
         
-        // Set the dialog icon.
-        //this.dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
     }
 
     /**

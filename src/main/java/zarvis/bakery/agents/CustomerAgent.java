@@ -26,10 +26,8 @@ public class CustomerAgent extends TimeAgent {
 	private TreeMap<String, Integer> sortedOrderAggregation = new TreeMap<String, Integer>();
 	private DFAgentDescription[] bakeries;
 	private TreeMap<String, Integer> inWaitOrderAggregation = new TreeMap<String,Integer>();
-	@SuppressWarnings("unused")
 	private List<String>inProcessOrderAggregation = new ArrayList<>();
 	private String preemptFailOrder;
-	@SuppressWarnings("unused")
 	private TreeMap<String, Boolean> finishedOrderAggregation = new TreeMap<String, Boolean>();
 	
 	private ACLMessage orderMsg;
@@ -163,20 +161,6 @@ public class CustomerAgent extends TimeAgent {
 			msg = Util.buildOrderMessage(key, orders, getAID().getLocalName());
 			sortedOrderAggregation.remove(key);			
 			
-			//Below are multi order in one message
-//			do {
-//				key = entry.getKey();
-//				inWaitOrderAggregation.put(key, value);
-//				
-//				msg += Util.buildOrderMessage(key, orders, getAID().getLocalName());
-//				
-//				sortedOrderAggregation.remove(key);
-//				if (sortedOrderAggregation.size() == 0) {
-//					break;
-//				}
-//				entry = sortedOrderAggregation.entrySet().iterator().next();
-//			} while (value == entry.getValue());
-			
 			orderMsgString = msg.substring(0, msg.length() - 1);
 			orderMsg.setContent(msg.substring(0, msg.length() - 1));
 			
@@ -257,7 +241,6 @@ public class CustomerAgent extends TimeAgent {
 						block();		
 					}
 					else if (reply.getPerformative() == ACLMessage.PROPOSE) {
-//						System.out.println("Message returned");
 						double price = Double.parseDouble(reply.getContent());
 						if(cheapestBakery == null || price < bestPrice){
 							cheapestBakery = reply.getSender();
@@ -331,7 +314,7 @@ public class CustomerAgent extends TimeAgent {
 	}
 	
 	private class OrderFinishListener extends CyclicBehaviour {
-		
+		private static final long serialVersionUID = 1L;
 		private MessageTemplate orderFinishTemplate =
 				MessageTemplate.and(MessageTemplate.MatchPerformative(CustomMessage.FINISH_ORDER),
 						MessageTemplate.MatchConversationId("to-customer-finish-order"));
