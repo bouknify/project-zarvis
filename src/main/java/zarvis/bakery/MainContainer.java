@@ -15,6 +15,7 @@ import zarvis.bakery.agents.CustomerAgent;
 import zarvis.bakery.agents.KneedingMachineAgent;
 import zarvis.bakery.agents.OvenAgent;
 import zarvis.bakery.agents.PreparationTableAgent;
+import zarvis.bakery.agents.TruckAgent;
 import zarvis.bakery.agents.manager.OvenManager;
 import zarvis.bakery.agents.manager.PreparationTableManager;
 import zarvis.bakery.agents.manager.CoolingManager;
@@ -25,6 +26,7 @@ import zarvis.bakery.models.Customer;
 import zarvis.bakery.models.DoughPrepTable;
 import zarvis.bakery.models.KneedingMachine;
 import zarvis.bakery.models.Oven;
+import zarvis.bakery.models.Truck;
 import zarvis.bakery.utils.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +81,9 @@ public class MainContainer {
 				mainContainer.acceptNewAgent("coolingMachine" + "-" + bakery.getGuid(),new CoolingAgent(bakery)).start();
 				
 				mainContainer.acceptNewAgent("coolingManager-" + bakery.getGuid(),new CoolingManager(bakery)).start();
-				
+				for (Truck truck: bakery.getTrucks()) {
+					mainContainer.acceptNewAgent(truck.getGuid(),new TruckAgent(bakery)).start();
+				}
 				
 				break;
 			}
@@ -94,7 +98,6 @@ public class MainContainer {
 
 			Runnable runnable = () -> Application.launch(MainApp.class);
 			new Thread(runnable).start();
-			
 			while (true) {
 				Thread.sleep(300000);
 				boolean finished = true;

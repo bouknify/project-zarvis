@@ -5,10 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 
 import jade.core.AID;
@@ -22,13 +18,11 @@ import zarvis.bakery.utils.ValueComparatorAscending;
 import zarvis.bakery.models.*;
 
 public class Util {
-	private static Logger logger = LoggerFactory.getLogger(Util.class);
 	public static final List<String> PRODUCTNAMES = Arrays.asList("Bagel", "Baguette", "Berliner", "Bread", "Brezel", "Bun", "Ciabatta",
 			"Cookie", "Croissant", "Donut", "Muffin","Multigrain Bread");
 	public static final long MILLIS_PER_MIN = 2;
 
 	public static BakeryJsonWrapper getWrapper() {
-		
 		final String FILENAME = "src/main/config/random-scenario.json";
 		//final String FILENAME = "/home/aniruddha/Downloads/WS2017/MultiAgent/project-zarvis/src/main/config/random-scenario.json";
 		//final String FILENAME = "/home/yassine/WS17_yboukn2s/project-zarvis/src/main/config/random-scenario.json";
@@ -39,7 +33,7 @@ public class Util {
 			reader = new BufferedReader(new FileReader(FILENAME));
 			jsonwrapper = new Gson().fromJson(reader, BakeryJsonWrapper.class);
 		} catch (FileNotFoundException e) {
-			logger.error("Exception :: " , e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -48,7 +42,7 @@ public class Util {
 					reader.close();
 			}
 			catch (IOException e) {
-				logger.error("Exception :: " , e);
+				e.printStackTrace();
 			}		
 			
 		}
@@ -69,7 +63,7 @@ public class Util {
 			DFAgentDescription[] searchResult = DFService.search(agent, agentDescription);
 			return (searchResult.length != 0) ? searchResult : null;
 		} catch (FIPAException e) {
-			logger.error("Exception :: " , e);
+			e.printStackTrace();
 			return null;
 		}
 
@@ -91,7 +85,7 @@ public class Util {
 			DFService.register(agent, agentDescription);
 			return true;
 		} catch (FIPAException e) {
-			logger.error("Exception :: " , e);
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -99,8 +93,8 @@ public class Util {
 	public static void deregisterInYellowPage(Agent agent) {
 		try {
 			DFService.deregister(agent);
-		} catch (FIPAException e) {
-			logger.error("Exception :: " , e);
+		} catch (FIPAException fe) {
+			fe.printStackTrace();
 		}
 	}
 
@@ -144,7 +138,7 @@ public class Util {
 		try {
 			Thread.sleep(milliseconds);
 		} catch (InterruptedException e) {
-			logger.error("Exception :: " , e);
+			e.printStackTrace();
 			Thread.currentThread().interrupt();
 		}
 	}
@@ -180,6 +174,32 @@ public class Util {
 			}
 		}
 		return msg;
+	}
+	
+	public static NeiGraph InitializeGraph() {
+		
+		BakeryJsonWrapper wrapper = getWrapper();
+		StreetNetwork net = wrapper.getStreet_network();
+		
+		NeiGraph neig = new NeiGraph();
+		for (Node n : net.getNodes()) {
+			List<Node> m = new ArrayList<>();
+			for (Link l : net.getLinks()) {
+				if(l.getSource().equals(n.getGuid())) {
+					String target = l.getTarget();
+					for (Node n1 : net.getNodes()) {
+						if (n1.getCompany().equals(target)) {
+							m.add(n1);
+							break;
+						}
+					}
+				}
+			}
+			neig.AddEntry(n, m);
+		}
+		
+		return neig;
+		
 	}
 
 }
