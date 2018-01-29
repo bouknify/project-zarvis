@@ -128,7 +128,7 @@ public class MainApp extends Application {
 
 
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("FirstOverException :: " , e);
         }
     }
     public void initRootLayout() {
@@ -148,7 +148,7 @@ public class MainApp extends Application {
 
             primaryStage.show();
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("RootLayoutException :: " , e);
         }
 
         // Try to load last opened Customer file.
@@ -176,7 +176,7 @@ public class MainApp extends Application {
             controller.setMainApp(this);
 
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("CustomerShowException :: " , e);
         }
     }
     
@@ -196,7 +196,7 @@ public class MainApp extends Application {
             controller.setMainApp(this);
 
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("BakeriesShowException :: " , e);
         }
     	
     }
@@ -236,7 +236,7 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("EditCustomerException :: " , e);
             return false;
         }
     }
@@ -269,7 +269,7 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("EditBakeryException :: " , e);
             return false;
         }
     }
@@ -290,7 +290,7 @@ public class MainApp extends Application {
             controller.setOrders(Customer);
             dialogStage.showAndWait();
         } catch (IOException e) {
-        	logger.error("Exception :: " , e);
+        	logger.error("OrdersException :: " , e);
             
         }
     }
@@ -359,8 +359,8 @@ public class MainApp extends Application {
         	alert.setTitle("Error");
         	alert.setHeaderText("Could not load data");
         	alert.setContentText("Could not load data from file:\n" + file.getPath());
-        	
         	alert.showAndWait();
+        	logger.error("alertCustomerException :: " , e);
         }
     }
 
@@ -390,7 +390,7 @@ public class MainApp extends Application {
         	alert.setTitle("Error");
         	alert.setHeaderText("Could not save data");
         	alert.setContentText("Could not save data to file:\n" + file.getPath());
-        	
+        	logger.error("saveException :: " , e);
         	alert.showAndWait();
         }
     }
@@ -432,7 +432,7 @@ public class MainApp extends Application {
             controller.setOvens(Bakery);
             dialogStage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("ovensException :: " , e);
             
         }
 		
@@ -454,7 +454,7 @@ public class MainApp extends Application {
             controller.setTrucks(Bakery);
             dialogStage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("TrucksException :: " , e);
             
         }
 		
@@ -477,7 +477,7 @@ public class MainApp extends Application {
             controller.setKneedingMachines(Bakery);
             dialogStage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+        	logger.error("KneadMachineException :: " , e);
             
         }
 		

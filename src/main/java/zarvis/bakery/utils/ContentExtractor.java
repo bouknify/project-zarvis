@@ -43,7 +43,7 @@ public class ContentExtractor {
 	private void setProducts(String a) {
 		amounts = a.split("\\.");
 		for (int i = 0; i < amounts.length; i++) {
-			productlist.put(Util.PRODUCTNAMES.get(i), Integer.parseInt(amounts[i]));
+			productlist.put(Util.getProductnames().get(i), Integer.parseInt(amounts[i]));
 		}
 	}
 	

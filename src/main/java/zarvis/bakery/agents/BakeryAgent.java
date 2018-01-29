@@ -46,9 +46,9 @@ public class BakeryAgent extends TimeAgent {
 	private transient Map<ContentExtractor, Integer> todaysOrderMap = new HashMap<>();
 	private transient List<ContentExtractor> todaysOrder = new ArrayList<>();
 	private transient List<ContentExtractor> waitOrder = new ArrayList<>();
-	private int[] todayGoals = new int[Util.PRODUCTNAMES.size()];
-	private int[] currentMadeAmounts = new int[Util.PRODUCTNAMES.size()];
-	private int[] currentOrderAmounts = new int[Util.PRODUCTNAMES.size()];
+	private int[] todayGoals = new int[Util.getProductnames().size()];
+	private int[] currentMadeAmounts = new int[Util.getProductnames().size()];
+	private int[] currentOrderAmounts = new int[Util.getProductnames().size()];
 	//private ContentExtractor currentCE;
 	Map<String,Integer> currentOrderProducts = new HashMap<>();
 	
@@ -258,7 +258,7 @@ public class BakeryAgent extends TimeAgent {
 					todaysOrder.add(ce);
 					Map<String,Integer> productAmounts = ce.getProducts();
 					for (int j = 0; j < productAmounts.size(); j ++) {
-						todayGoals[j] += productAmounts.get(Util.PRODUCTNAMES.get(j));
+						todayGoals[j] += productAmounts.get(Util.getProductnames().get(j));
 					}
 				}
 			}
@@ -294,7 +294,7 @@ public class BakeryAgent extends TimeAgent {
 			todaysOrder.add(ce);
 			Map<String,Integer> productAmounts = ce.getProducts();
 			for (int j = 0; j < productAmounts.size(); j ++) {
-				todayGoals[j] += productAmounts.get(Util.PRODUCTNAMES.get(j));
+				todayGoals[j] += productAmounts.get(Util.getProductnames().get(j));
 			}
 //			System.out.println(bakery.getGuid() + " [BAKERY] Todays Order out update:" + todaysOrder.size());
 			todaysOrder.sort(Comparator.comparing(ContentExtractor::getDeliveryTime));

@@ -113,7 +113,7 @@ public class KneedingMachineAgent extends Agent {
 	
 	public long calculateTime(String productString) {
 		int productIdx = Integer.parseInt(productString);
-		String productName = Util.PRODUCTNAMES.get(productIdx);
+		String productName = Util.getProductnames().get(productIdx);
 		
 		long waitTime = 0;
 		

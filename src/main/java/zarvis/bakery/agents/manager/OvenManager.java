@@ -24,9 +24,9 @@ public class OvenManager extends Agent{
 	private boolean hasOrder;
 	private boolean isRemainEmpty;
 	private String currentOrderGuid;
-	private int[] currentOrderOrigin = new int[Util.PRODUCTNAMES.size()];
-	private int[] currentOrderRemains = new int[Util.PRODUCTNAMES.size()];
-	private int[] currentOrderExisting = new int[Util.PRODUCTNAMES.size()];
+	private int[] currentOrderOrigin = new int[Util.getProductnames().size()];
+	private int[] currentOrderRemains = new int[Util.getProductnames().size()];
+	private int[] currentOrderExisting = new int[Util.getProductnames().size()];
 	private String currentOrderString;
 	
 	private boolean talkWithOven;
