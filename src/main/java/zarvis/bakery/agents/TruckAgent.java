@@ -1,5 +1,8 @@
 package zarvis.bakery.agents;
 
+import java.util.List;
+import java.util.Map;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -9,6 +12,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import zarvis.bakery.models.Bakery;
 import zarvis.bakery.models.Location;
+import zarvis.bakery.models.Node;
 import zarvis.bakery.utils.NeiGraph;
 import zarvis.bakery.utils.Util;
 import zarvis.bakery.messages.CustomMessage;
@@ -21,6 +25,9 @@ public class TruckAgent extends Agent {
 	private boolean isAvailable = true;
 	private NeiGraph neig;
 	private Location bakeryLoc;
+	
+	private Node bakeryNode = new Node();
+	
 	public TruckAgent(Bakery bakery) {
 		this.bakery = bakery;
 		setNeig(Util.InitializeGraph());
@@ -31,6 +38,13 @@ public class TruckAgent extends Agent {
 		Util.registerInYellowPage(this, "TruckAgent", this.bakery.getGuid());
 		setBakeryGuid(bakery.getGuid());
 		setBakeryLoc(bakery.getLocation());
+		for (Map.Entry<Node, List<Node>> n : neig.GetMap().entrySet()) {
+			if (n.getKey().getLocation().getX() == bakeryLoc.getX() && 
+					n.getKey().getLocation().getY() == bakeryLoc.getY()) {
+				bakeryNode = n.getKey();
+				break;
+			}
+		}
 		ParallelBehaviour pal = new ParallelBehaviour();
 		pal.addSubBehaviour(new ReceiveRequest());
 		addBehaviour(pal);
@@ -55,9 +69,10 @@ public class TruckAgent extends Agent {
 					isAvailable = false;
 					
 					long waitTime = calculateWaitTime(truckMsg.getContent());
+					System.out.println(bakery.getGuid() + " [TRUCK] accept request, ETA: " + waitTime);
 					
 					myAgent.addBehaviour(new Deliver(myAgent, waitTime, truckMsg.getContent()));
-					myAgent.addBehaviour(new Return(myAgent, waitTime));
+					myAgent.addBehaviour(new Return(myAgent, waitTime*2));
 					
 				} else {
 					ACLMessage truckReply = truckMsg.createReply();
@@ -107,8 +122,42 @@ public class TruckAgent extends Agent {
 	}
 	
 	private long calculateWaitTime(String content) {
-		long waitTime = 5 * Util.MILLIS_PER_MIN;
-		return waitTime;
+		
+		double waitTime = 0;
+		System.out.println(content + "!!!!!!!!!!!!!!!!!!!!!!!!");
+		String customer = content.split(",")[1];
+		Node targetNode = new Node();
+		Node currentNode = bakeryNode;
+		for (Map.Entry<Node, List<Node>> n : neig.GetMap().entrySet()) {
+			if (n.getKey().getCompany().equals(customer)) {
+				targetNode = n.getKey();
+				break;
+			}
+		}
+		
+		System.out.println(currentNode);
+//		System.out.println(targetNode);
+		while (currentNode.equals(targetNode)==false) {
+			double  minDist = 9999999.00;
+			Node minNode = currentNode;
+			
+			for (Node n1 : neig.GetMap().get(currentNode)) {
+				double dist = Math.sqrt(Math.pow(n1.getLocation().getX() - targetNode.getLocation().getX(),2) + 
+						Math.pow(n1.getLocation().getY() - targetNode.getLocation().getY(),2));
+				if (dist < minDist) {
+					minDist = dist;
+					minNode = n1;
+				}
+			}
+			
+			double travelCost = Math.sqrt(Math.pow(currentNode.getLocation().getX() - minNode.getLocation().getX(),2)
+					+ Math.pow(currentNode.getLocation().getY() - minNode.getLocation().getY(),2));
+//			System.out.println("[TRUCK] travelCost " + travelCost);
+			
+			waitTime += travelCost;
+			currentNode = minNode;
+		}
+		return (long) waitTime;
 	}
 
 	public String getBakeryGuid() {
