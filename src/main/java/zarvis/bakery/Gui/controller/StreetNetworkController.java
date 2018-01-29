@@ -86,7 +86,7 @@ public class StreetNetworkController {
 		pane.getChildren().addAll(customers);
 		pane.getChildren().addAll(bakeries);
 		Stage dialogStage = new Stage();
-        dialogStage.setTitle("orders");
+        dialogStage.setTitle("Street Network");
         dialogStage.initModality(Modality.WINDOW_MODAL);
         dialogStage.initOwner(primaryStage);
         Scene scene = new Scene(pane);

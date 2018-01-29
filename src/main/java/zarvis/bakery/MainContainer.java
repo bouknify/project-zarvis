@@ -7,22 +7,18 @@ import jade.core.Runtime;
 import jade.util.ExtendedProperties;
 import jade.util.leap.Properties;
 import jade.wrapper.AgentContainer;
+import javafx.application.Application;
+import zarvis.bakery.Gui.MainApp;
 import zarvis.bakery.agents.BakeryAgent;
 import zarvis.bakery.agents.CoolingAgent;
 import zarvis.bakery.agents.CustomerAgent;
 import zarvis.bakery.agents.KneedingMachineAgent;
-import zarvis.bakery.agents.KneedingMachineAgent2;
 import zarvis.bakery.agents.OvenAgent;
-import zarvis.bakery.agents.OvenAgent2;
 import zarvis.bakery.agents.PreparationTableAgent;
-import zarvis.bakery.agents.PreparationTableAgent2;
 import zarvis.bakery.agents.manager.OvenManager;
-import zarvis.bakery.agents.manager.OvenManager2;
 import zarvis.bakery.agents.manager.PreparationTableManager;
-import zarvis.bakery.agents.manager.PreparationTableManager2;
 import zarvis.bakery.agents.manager.CoolingManager;
 import zarvis.bakery.agents.manager.KneedingMachineManager;
-import zarvis.bakery.agents.manager.KneedingMachineManager2;
 import zarvis.bakery.models.Bakery;
 import zarvis.bakery.models.BakeryJsonWrapper;
 import zarvis.bakery.models.Customer;
@@ -58,29 +54,27 @@ public class MainContainer {
 
 			// create multiple bakery agents
 			for (Bakery bakery : wrapper.getBakeries()) {
-//				System.out.println(bakery.getAid().getLocalName());
 				mainContainer.acceptNewAgent(bakery.getGuid(), new BakeryAgent(bakery, globalStartTime)).start();
 				for (KneedingMachine kneedingMachine : bakery.getKneading_machines()) {
 					mainContainer.acceptNewAgent(kneedingMachine.getGuid(),
-							new KneedingMachineAgent2(bakery)).start();
+							new KneedingMachineAgent(bakery)).start();
 				}
-//				mainContainer.acceptNewAgent("kneeding_machine_manager-" + bakery.getGuid(),new KneedingMachineManager(bakery)).start();
-				mainContainer.acceptNewAgent("kneeding_machine_manager-" + bakery.getGuid(),new KneedingMachineManager2(bakery)).start();
+				mainContainer.acceptNewAgent("kneeding_machine_manager-" + bakery.getGuid(),new KneedingMachineManager(bakery)).start();
 				
 				for(DoughPrepTable prepaTable: bakery.getDough_prep_tables()){
 					mainContainer.acceptNewAgent(prepaTable.getGuid()+"-"+bakery.getGuid(),
-							new PreparationTableAgent2(bakery)).start();
+							new PreparationTableAgent(bakery)).start();
 				}
 				
 				mainContainer.acceptNewAgent("preparationTableManager-"+bakery.getGuid(),
-						new PreparationTableManager2(bakery)).start();
+						new PreparationTableManager(bakery)).start();
 				
 				
 				for (Oven ovenMachine : bakery.getOvens()) {
-					mainContainer.acceptNewAgent(ovenMachine.getGuid() + "-" + bakery.getGuid(),new OvenAgent2(bakery)).start();
+					mainContainer.acceptNewAgent(ovenMachine.getGuid() + "-" + bakery.getGuid(),new OvenAgent(bakery)).start();
 				}
 				
-				mainContainer.acceptNewAgent("ovenManager-" + bakery.getGuid(),new OvenManager2(bakery)).start();
+				mainContainer.acceptNewAgent("ovenManager-" + bakery.getGuid(),new OvenManager(bakery)).start();
 				
 				mainContainer.acceptNewAgent("coolingMachine" + "-" + bakery.getGuid(),new CoolingAgent(bakery)).start();
 				
@@ -98,7 +92,9 @@ public class MainContainer {
 				mainContainer.acceptNewAgent(customer.getGuid(), agent).start();
 			}
 
-
+			Runnable runnable = () -> Application.launch(MainApp.class);
+			new Thread(runnable).start();
+			
 			while (true) {
 				Thread.sleep(300000);
 				boolean finished = true;

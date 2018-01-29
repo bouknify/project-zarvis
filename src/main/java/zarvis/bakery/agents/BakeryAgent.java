@@ -50,7 +50,6 @@ public class BakeryAgent extends TimeAgent {
 	private int[] todayGoals = new int[Util.PRODUCTNAMES.size()];
 	private int[] currentMadeAmounts = new int[Util.PRODUCTNAMES.size()];
 	private int[] currentOrderAmounts = new int[Util.PRODUCTNAMES.size()];
-	private ContentExtractor currentCE;
 	Map<String,Integer> currentOrderProducts = new HashMap<>();
 	
 	//Other time management
@@ -202,13 +201,12 @@ public class BakeryAgent extends TimeAgent {
 	
 	private class CheckTime extends CyclicBehaviour {
 		
+		private static final long serialVersionUID = 1L;
 		private MessageTemplate dummyTemplate = MessageTemplate.MatchPerformative(CustomMessage.DUMMY);
 
 		public void action() {
 			ACLMessage dummyMsg = myAgent.receive(dummyTemplate);
 			UpdateTime();
-			String log = getAID().getLocalName() + " - " + "Day: " + daysElapsed + " " + "Hours: " + totalHoursElapsed;
-//			System.out.println(log);
 			if (totalHoursElapsed%24 == 0 && totalHoursElapsed != lastHourChecked) {
 				lastHourChecked = totalHoursElapsed;
 				addBehaviour(new setTodayOrder());
@@ -288,6 +286,7 @@ public class BakeryAgent extends TimeAgent {
 	
 	public class ManageProduction extends CyclicBehaviour {
 		
+		private static final long serialVersionUID = 1L;
 		private int stuckCase1 = 0;
 		private MessageTemplate avaiTemplate = MessageTemplate.and(
 				MessageTemplate.MatchPerformative(CustomMessage.RESPOND_AVAILABILITY),
@@ -355,7 +354,6 @@ public class BakeryAgent extends TimeAgent {
 					System.out.println("Todays order 2: " + todaysOrder.size());
 					step = 3;
 				} else if (orderReply!=null && orderReply.getPerformative()==ACLMessage.REFUSE) {
-//					System.out.println("Here somehow");
 					step = 0;
 				} else {
 					block();
@@ -364,7 +362,6 @@ public class BakeryAgent extends TimeAgent {
 			case 3:
 				ACLMessage finishReply = myAgent.receive(finishTemplate);
 				if (finishReply!=null) {
-//					System.out.println("Yay!");
 					String returnOrderGuid = finishReply.getContent();
 					Util.sendMessage(myAgent, new AID(customer, AID.ISLOCALNAME), CustomMessage.FINISH_ORDER, returnOrderGuid, "to-customer-finish-order");
 					step = 0;
