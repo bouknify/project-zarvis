@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
 import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -36,6 +38,8 @@ public class Util {
 			jsonwrapper = new Gson().fromJson(reader, BakeryJsonWrapper.class);
 		} catch (FileNotFoundException e) {
 			logger.error("WrapperException :: " , e);
+		} catch (JsonIOException e) {
+		logger.error("JsonWrapperException :: " , e);
 		}
 		finally
 		{
@@ -179,25 +183,26 @@ public class Util {
 	}
 	
 	public static NeiGraph InitializeGraph() {
-		
-		BakeryJsonWrapper wrapper = getWrapper();
-		StreetNetwork net = wrapper.getStreet_network();
-		
 		NeiGraph neig = new NeiGraph();
-		for (Node n : net.getNodes()) {
-			List<Node> m = new ArrayList<>();
-			for (Link l : net.getLinks()) {
-				if(l.getSource().equals(n.getGuid())) {
-					String target = l.getTarget();
-					for (Node n1 : net.getNodes()) {
-						if (n1.getCompany().equals(target)) {
-							m.add(n1);
-							break;
+		BakeryJsonWrapper wrapper = getWrapper();
+		
+		if(wrapper != null){
+			StreetNetwork net = wrapper.getStreet_network();
+			for (Node n : net.getNodes()) {
+				List<Node> m = new ArrayList<>();
+				for (Link l : net.getLinks()) {
+					if(l.getSource().equals(n.getGuid())) {
+						String target = l.getTarget();
+						for (Node n1 : net.getNodes()) {
+							if (n1.getCompany().equals(target)) {
+								m.add(n1);
+								break;
+							}
 						}
 					}
 				}
+				neig.AddEntry(n, m);
 			}
-			neig.AddEntry(n, m);
 		}
 		
 		return neig;
