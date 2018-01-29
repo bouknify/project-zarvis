@@ -194,7 +194,7 @@ public class Util {
 					if(l.getSource().equals(n.getGuid())) {
 						String target = l.getTarget();
 						for (Node n1 : net.getNodes()) {
-							if (n1.getCompany().equals(target)) {
+							if (n1.getGuid().equals(target)) {
 								m.add(n1);
 								break;
 							}
