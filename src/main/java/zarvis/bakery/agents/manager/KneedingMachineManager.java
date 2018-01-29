@@ -23,9 +23,9 @@ public class KneedingMachineManager extends Agent {
 	private boolean hasOrder;
 	private String currentOrderGuid;
 	private String currentOrderString;
-	private int[] currentOrderOrigin = new int[Util.PRODUCTNAMES.size()];
-	private int[] currentOrderRemains = new int[Util.PRODUCTNAMES.size()];
-	private int[] currentOrderExisting = new int[Util.PRODUCTNAMES.size()];
+	private int[] currentOrderOrigin = new int[Util.getProductnames().size()];
+	private int[] currentOrderRemains = new int[Util.getProductnames().size()];
+	private int[] currentOrderExisting = new int[Util.getProductnames().size()];
 	private boolean isRemainEmpty;
 	private boolean talkWithPrepTable;
 
