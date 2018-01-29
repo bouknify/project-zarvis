@@ -10,7 +10,6 @@ import jade.wrapper.AgentContainer;
 import javafx.application.Application;
 import zarvis.bakery.Gui.MainApp;
 import zarvis.bakery.agents.BakeryAgent;
-import zarvis.bakery.agents.CoolingAgent;
 import zarvis.bakery.agents.CustomerAgent;
 import zarvis.bakery.agents.KneedingMachineAgent;
 import zarvis.bakery.agents.OvenAgent;
@@ -18,7 +17,6 @@ import zarvis.bakery.agents.PreparationTableAgent;
 import zarvis.bakery.agents.TruckAgent;
 import zarvis.bakery.agents.manager.OvenManager;
 import zarvis.bakery.agents.manager.PreparationTableManager;
-import zarvis.bakery.agents.manager.CoolingManager;
 import zarvis.bakery.agents.manager.KneedingMachineManager;
 import zarvis.bakery.models.Bakery;
 import zarvis.bakery.models.BakeryJsonWrapper;
@@ -78,9 +76,7 @@ public class MainContainer {
 				
 				mainContainer.acceptNewAgent("ovenManager-" + bakery.getGuid(),new OvenManager(bakery)).start();
 				
-				mainContainer.acceptNewAgent("coolingMachine" + "-" + bakery.getGuid(),new CoolingAgent(bakery)).start();
 				
-				mainContainer.acceptNewAgent("coolingManager-" + bakery.getGuid(),new CoolingManager(bakery)).start();
 				for (Truck truck: bakery.getTrucks()) {
 					mainContainer.acceptNewAgent(truck.getGuid(),new TruckAgent(bakery)).start();
 				}
